@@ -98,7 +98,7 @@
           it('should return an array', function() {
             expect(Array.isArray(startsWith(testFruits, 'd'))).to.equal(true);
           });
-          it('should return an array containing strings starting with the given letter', function() {
+          it('should return an array containing strings starting with the given etter', function() {
             var startsWithP = startsWith(testFruits, 'p');
             var startsWithA = startsWith(testFruits, 's');
             var startsWithG = startsWith(testFruits, 'g');
@@ -157,7 +157,7 @@
           });
           it('should return total sum of all prices', function() {
             var total = sumTotal(testGrocery);
-            console.log(total);
+            //console.log(total);
             expect(total).to.equal(173.98);
           });
         });

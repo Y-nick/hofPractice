@@ -91,19 +91,63 @@ var sumTotal = function(products) {
 // exampleOutput: { dessertType: 3, dessertType2: 1 }
 var dessertCategories = function(desserts) {
 
+  return _.reduce(desserts, function(dessertAccum, num, index, arr) {
+    var desType = desserts[index]['type'];
+    if (dessertAccum[desType] === undefined) {
+      dessertAccum[desType] = 1;
+    } else {
+      dessertAccum[desType] ++;
+    }
+    return dessertAccum;
+  }, {});
+
 };
 
 // given an array of movie data objects,return an array containing
 // movies that came out between 1990 and 2000.
 // TIP: use an array as your accumulator - don't push to an external array!
 var ninetiesKid = function(movies) {
-
+  //I array of movies
+  //O return array of the movies that came out in 90s
+  //c dont create external arr
+  //e
+  var oldies = [];
+  var movieResult = _.reduce(movies, function(accum, thisMov, index, arr) {
+    if (movies[index].releaseYear >= 1990 && movies[index].releaseYear <= 2000) {
+      oldies.push(thisMov.title);
+    }
+  });
+  return oldies;
 };
 
 // return an boolean stating if there exists a movie with a shorter
 // runtime than your time limit.
 // timeLimit is an integer representing a number of minutes.
 var movieNight = function(movies, timeLimit) {
+  //I, movie obj and time limit
+
+  // var testTime = function(input) {
+  //   if (input <= timeLimit) {
+  //     return true;
+  //   } else {
+  //     return false;
+  //   }
+  // };
+
+
+
+  var haveTime = _.reduce(movies, function(accum, thisItem, index, arr) {
+    //console.log(testTime(movies[index].runtime), movies[index].runtime);
+    var atLeast1 = function(input) {
+    };
+    if (movies[index].runtime <= timeLimit) {
+      return true;
+    } else {
+      return false;
+    }
+  }, true);
+
+  return haveTime;
 
 };
 
@@ -116,14 +160,30 @@ var movieNight = function(movies, timeLimit) {
 // given an array of strings, use _.map to return a new array containing all
 // strings converted to uppercase letters.
 var upperCaseFruits = function(fruits) {
-
+  //map returns a new arr of values
+  var turnUpFruit = _.map(fruits, function(value, index, list) {
+    return value.toUpperCase();
+  });
 };
 
 // given an array of dessert objects, return a new array of objects
 // that have a new "glutenFree" property, with a boolean value.
 // TIP: Items that contain flour are not gluten-free.
 var glutenFree = function(desserts) {
-
+  return _.map(desserts, function(value, key, list) {
+    var result = {};
+    //console.log(desserts[key].ingredients.indexOf('flour'), desserts[key].ingredients);
+    if (desserts[key].ingredients.indexOf('flour') === -1) {
+      desserts[key]['glutenFree'] = true;
+      return desserts[key];
+    } else {
+      if (desserts[key].ingredients.indexOf('flour') !== -1) {
+        desserts[key]['glutenFree'] = false;
+        return desserts[key];
+      }
+    }
+    return result;
+  });
 };
 
 // use _.map to return an array of items with their sale prices, with a new property
@@ -148,4 +208,7 @@ var glutenFree = function(desserts) {
 */
 var applyCoupon = function(groceries, coupon) {
 
+  return _.map(groceries, function(value, key, list) {
+    console.log(groceries[key]);
+  });
 };

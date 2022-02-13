@@ -124,32 +124,36 @@ var ninetiesKid = function(movies) {
 // runtime than your time limit.
 // timeLimit is an integer representing a number of minutes.
 var movieNight = function(movies, timeLimit) {
-  //I, movie obj and time limit
+  /*Look closely at your statements and figure out when you want your statement to
+  run versus when you want the supplied statement to run. */
 
-  // var testTime = function(input) {
-  //   if (input <= timeLimit) {
-  //     return true;
-  //   } else {
-  //     return false;
-  //   }
-  // };
+  // if (movies.length === 0) {
+  //   return true;
+  // }
 
+  var daTime = _.reduce(movies, function(accum, thisItem, index, arr) {
 
-
-  var haveTime = _.reduce(movies, function(accum, thisItem, index, arr) {
-    //console.log(testTime(movies[index].runtime), movies[index].runtime);
-    var atLeast1 = function(input) {
-    };
-    if (movies[index].runtime <= timeLimit) {
-      return true;
-    } else {
-      return false;
+    if (thisItem.runtime >= timeLimit) {
+      //console.log('top ', timeLimit);
+      return !!(thisItem.runtime >= timeLimit);
     }
+    if (thisItem.runtime <= timeLimit) {
+      //console.log('bottom ', timeLimit);
+      return !!(thisItem.runtime <= timeLimit);
+    }
+
   }, true);
 
-  return haveTime;
+  if (movies[0].runtime > timeLimit) {
+    return false;
+  }
+  return daTime;
+
+
+
 
 };
+
 
 /*
  *
@@ -208,7 +212,15 @@ var glutenFree = function(desserts) {
 */
 var applyCoupon = function(groceries, coupon) {
 
-  return _.map(groceries, function(value, key, list) {
-    console.log(groceries[key]);
+  var calculate = _.map(groceries, function(obj, key, list) {
+    var price = Math.round(100 * parseFloat(groceries[key].price.replace(/[$,]/g, '')));
+    var discount = price * coupon;
+    var discountedCents = Math.round(((price - discount) * 100) / 100 );
+    obj['salePrice'] = '$' + discountedCents / 100;
+
+    console.log(obj);
+    return obj;
   });
+
+  return calculate;
 };
